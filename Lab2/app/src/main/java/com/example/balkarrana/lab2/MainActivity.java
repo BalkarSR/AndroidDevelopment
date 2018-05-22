@@ -1,48 +1,50 @@
 package com.example.balkarrana.lab2;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View.OnClickListener;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    Button userButton, passButton, userPassButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText usernameInput = (EditText)findViewById(R.id.username);
-        final String userText = usernameInput.getText().toString();
-        final Button userButtonVariable = (Button)findViewById(R.id.userButton);
+        Button userButton = findViewById(R.id.userButton);
+        userButton.setOnClickListener(this);
 
-        EditText passwordInput = (EditText)findViewById(R.id.username);
-        final String passText = passwordInput.getText().toString();
-        final Button passButtonVariable = (Button)findViewById(R.id.passButton);
+        Button passButton = findViewById(R.id.passButton);
+        passButton.setOnClickListener(this);
 
-        final String userPassText = userText + passText;
-        final Button userPassButtonVariable = (Button)findViewById(R.id.userPassButton);
+        Button userPassButton = findViewById(R.id.userPassButton);
+        userPassButton.setOnClickListener(this);
 
-        userButtonVariable.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                userButtonVariable.setText(userText);
-            }
-        });
+    }
 
-        passButtonVariable.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                passButtonVariable.setText(passText);
-            }
-        });
+    public void onCreate(View v){
 
-        userPassButtonVariable.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                userPassButtonVariable.setText(userPassText);
-            }
-        });
+        EditText userText = findViewById(R.id.username), passText = findViewById(R.id.password);
+
+        switch(v.getId()){
+
+            case R.id.userButton:
+                userButton.setText(userText.getText().toString());
+                break;
+            case R.id.passButton:
+                passButton.setText(passText.getText().toString());
+                break;
+            case R.id.userPassButton:
+                String userPass = userText.getText().toString() + "-" + passText.getText().toString();
+                userPassButton.setText(userPass);
+                break;
+            default:
+        }
+
     }
 
 }
